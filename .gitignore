@@ -1,45 +1,57 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+import 'package:flutter/material.dart';
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+void main() {
+  runApp(const MyApp());
+}
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Bidding Page')),
+        body: const Center(
+          child: MaximumBid(),
+        ),
+      ),
+    );
+  }
+}
 
-# Symbolication related
-app.*.symbols
+class MaximumBid extends StatefulWidget {
+  const MaximumBid({super.key});
 
-# Obfuscation related
-app.*.map.json
+  @override
+  _MaximumBidState createState() => _MaximumBidState();
+}
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+class _MaximumBidState extends State<MaximumBid> {
+  int _currentBid = 100;
+
+  void _increaseBid() {
+    setState(() {
+      _currentBid += 50;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Current Maximum Bid: \$$_currentBid',
+          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 60),
+        ElevatedButton(
+          onPressed: _increaseBid,
+          child: const Text('Increase Bid by \$50'),
+        ),
+      ],
+    );
+  }
+}
